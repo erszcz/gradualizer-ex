@@ -18,7 +18,7 @@ defmodule GradualizerEx.TypeAnnotation do
       {{:., _, [{:__aliases__, _, path}, name]}, _, [] = _args} ->
         #unquote({:{}, [], [:string, 0, '\'Elixir.Fake\':t()']})
         #{:string, 0, Macro.escape("'Elixir.#{Enum.join(path, ".")}':#{name}()" |> to_charlist())}
-        name
+        "'Elixir.#{Enum.join(path, ".")}':#{name}()"
       other ->
         #unquote({:{}, [], [:string, 0, '\'Elixir.Fake\':t()']})
         other
