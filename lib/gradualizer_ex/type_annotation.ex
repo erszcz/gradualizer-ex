@@ -10,7 +10,7 @@ defmodule GradualizerEx.TypeAnnotation do
     erlang_type = elixir_type_to_erlang(type)
     IO.inspect(erlang_type, label: "erlang type")
     {type_op, [], [expr, Macro.to_string(erlang_type)]}
-    |> IO.inspect(label: "assert_type")
+    |> IO.inspect(label: "translate type")
   end
 
   defp elixir_type_to_erlang(type) do
@@ -19,6 +19,8 @@ defmodule GradualizerEx.TypeAnnotation do
         #unquote({:{}, [], [:string, 0, '\'Elixir.Fake\':t()']})
         #{:string, 0, Macro.escape("'Elixir.#{Enum.join(path, ".")}':#{name}()" |> to_charlist())}
         "'Elixir.#{Enum.join(path, ".")}':#{name}()"
+      _ when is_atom(type) ->
+        Atom.to_string(type)
       other ->
         #unquote({:{}, [], [:string, 0, '\'Elixir.Fake\':t()']})
         other
