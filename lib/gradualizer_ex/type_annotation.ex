@@ -8,9 +8,9 @@ defmodule GradualizerEx.TypeAnnotation do
 
   defp cast(type_op, expr, type) do
     erlang_type = elixir_type_to_erlang(type)
-    IO.inspect(erlang_type, label: "erlang type")
+    #IO.inspect(erlang_type, label: "erlang type")
     {type_op, [], [expr, Macro.to_string(erlang_type)]}
-    |> IO.inspect(label: "translate type")
+    #|> IO.inspect(label: "translate type")
   end
 
   defp elixir_type_to_erlang(type) do
